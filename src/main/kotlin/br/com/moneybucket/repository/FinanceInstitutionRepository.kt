@@ -9,4 +9,5 @@ import java.util.UUID
 interface FinanceInstitutionRepository : JpaRepository<FinanceInstitution, UUID> {
     fun findByUsername(user: String): List<FinanceInstitution>
     fun findByIdAndUsername(id: UUID, username: String): FinanceInstitution?
+    fun deleteByIdAndUsername(id: UUID, username: String): Int
 }

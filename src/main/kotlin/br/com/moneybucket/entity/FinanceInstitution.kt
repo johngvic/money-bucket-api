@@ -17,5 +17,5 @@ data class FinanceInstitution(
     @Id
     val id: UUID,
     val username: String,
-    val name: String
+    var name: String
 )
