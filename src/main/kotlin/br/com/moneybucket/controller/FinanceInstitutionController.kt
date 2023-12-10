@@ -28,13 +28,13 @@ import java.util.UUID;
 @RestController
 @RequestMapping("finance-institutions")
 class FinanceInstitutionController(
+    @Autowired
+    private val tokenService: TokenService,
     private val createFinanceInstitutionService: CreateFinanceInstitutionService,
     private val getFinanceInstitutionsService: GetFinanceInstitutionsService,
     private val getFinanceInstitutionsByIdService: GetFinanceInstitutionByIdService,
     private val editFinanceInstitutionService: EditFinanceInstitutionService,
-    private val deleteFinanceInstitutionService: DeleteFinanceInstitutionService,
-    @Autowired
-    private val tokenService: TokenService
+    private val deleteFinanceInstitutionService: DeleteFinanceInstitutionService
 ) {
     @PostMapping
     fun createFinanceInstitution(
