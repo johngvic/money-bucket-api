@@ -12,8 +12,7 @@ class CreateFinanceInstitutionService(
     private val financeInstitutionRepository: FinanceInstitutionRepository
 ) {
     fun invoke(user: String, name: String): UUID {
-        val generatedId = UUID.randomUUID()
-        financeInstitutionRepository.save(FinanceInstitution(generatedId, user, name))
-        return generatedId;
+        val response = financeInstitutionRepository.save(FinanceInstitution(null, user, name))
+        return response.id ?: throw Exception("Failed creating finance institution")
     }
 }

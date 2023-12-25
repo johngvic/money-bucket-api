@@ -12,8 +12,7 @@ class CreateCategoryService(
     private val categoryRepository: CategoryRepository
 ) {
     fun invoke(user: String, name: String): UUID {
-        val generatedId = UUID.randomUUID()
-        categoryRepository.save(Category(generatedId, user, name))
-        return generatedId;
+        val response = categoryRepository.save(Category(null, user, name))
+        return response.id ?: throw Exception("Failed creating category")
     }
 }

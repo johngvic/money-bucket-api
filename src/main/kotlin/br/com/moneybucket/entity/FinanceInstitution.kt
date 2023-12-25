@@ -1,11 +1,13 @@
 package br.com.moneybucket.entity
 
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import lombok.AllArgsConstructor
 import lombok.Data
 import lombok.NoArgsConstructor
+import org.hibernate.annotations.UuidGenerator
 import java.util.UUID
 
 @Entity
@@ -15,7 +17,9 @@ import java.util.UUID
 @Table(name = "finance_institutions")
 data class FinanceInstitution(
     @Id
-    val id: UUID,
+    @GeneratedValue
+    @UuidGenerator
+    val id: UUID?,
     val username: String,
     var name: String
 )

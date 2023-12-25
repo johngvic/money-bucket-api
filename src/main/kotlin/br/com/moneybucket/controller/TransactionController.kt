@@ -3,13 +3,13 @@ package br.com.moneybucket.controller
 import br.com.moneybucket.dto.transactions.req.CreateTransactionRequest
 import br.com.moneybucket.dto.transactions.res.CreateTransactionResponse
 import br.com.moneybucket.helpers.StringParser
+import br.com.moneybucket.service.transaction.CreateTransactionService
 import br.com.moneybucket.service.user.TokenService
 import lombok.extern.slf4j.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.UUID
 
 @Slf4j
 @RestController
@@ -17,6 +17,7 @@ import java.util.UUID
 class TransactionController(
     @Autowired
     private val tokenService: TokenService,
+    private val createTransactionService: CreateTransactionService
 ) {
     @PostMapping
     fun createTransaction(
@@ -24,6 +25,7 @@ class TransactionController(
         @RequestBody request: CreateTransactionRequest
     ): ResponseEntity<CreateTransactionResponse> {
         val username = tokenService.validateToken(StringParser.split(authorization))
-        return ResponseEntity(CreateTransactionResponse(UUID.randomUUID()), HttpStatus.CREATED)
+        val id = createTransactionService.invoke(username, request.title, request.type, request.category, request.financeInstitution, request.date, request.value)
+        return ResponseEntity(CreateTransactionResponse(id), HttpStatus.CREATED)
     }
 }
