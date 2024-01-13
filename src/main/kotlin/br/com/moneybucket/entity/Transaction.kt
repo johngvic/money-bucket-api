@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor
 import org.hibernate.annotations.UuidGenerator
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
@@ -28,5 +29,7 @@ data class Transaction(
     @Column(name = "finance_institution")
     var financeInstitution: UUID,
     var date: LocalDate,
-    var value: BigDecimal
+    var value: BigDecimal,
+    @Column(name = "created_at")
+    var createdAt: LocalDateTime,
 )
