@@ -13,9 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
 data class SecurityFilter(
-    @Autowired
     private val tokenService: TokenService,
-    @Autowired
     private val userRepository: UserRepository
 ) : OncePerRequestFilter() {
     override fun doFilterInternal(

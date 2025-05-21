@@ -26,8 +26,6 @@ data class Transaction(
     @Enumerated(EnumType.STRING)
     var type: Type,
     var category: UUID,
-    @Column(name = "finance_institution")
-    var financeInstitution: UUID,
     var date: LocalDate,
     var value: BigDecimal,
     @Column(name = "created_at")

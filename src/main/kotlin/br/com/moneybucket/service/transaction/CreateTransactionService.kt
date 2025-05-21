@@ -20,13 +20,12 @@ class CreateTransactionService(
         title: String,
         type: Type,
         category: UUID,
-        financeInstitution: UUID,
         date: LocalDate,
         value: BigDecimal
     ): UUID {
         val response = transactionRepository.save(
             Transaction(
-                null, username, title, type, category, financeInstitution, date, value, LocalDateTime.now()))
+                null, username, title, type, category, date, value, LocalDateTime.now()))
 
         return response.id ?: throw Exception("Failed creating transaction")
     }

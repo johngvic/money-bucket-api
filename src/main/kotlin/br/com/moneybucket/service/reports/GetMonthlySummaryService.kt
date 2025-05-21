@@ -61,39 +61,6 @@ class GetMonthlySummaryService(
             summary.byCategory = byCategoryResult
         }
 
-        if (includeFinanceInstitution == true) {
-            val byFinanceInstitutionResult = mutableMapOf<String, MutableMap<String, BasicMonthSummary>>()
-            for (iteratedMonth in 1..12) {
-                val transactions = getTransactionsByPeriod(iteratedMonth, year, transactionRepository)
-
-                for (transaction in transactions) {
-                    val stringfiedMonth = transaction.date.month.toString()
-                    val financeInstitution = transaction.financeInstitution.toString()
-
-                    val current = byFinanceInstitutionResult[stringfiedMonth]
-                    val currentSummary = current?.get(financeInstitution)
-                    var income = currentSummary?.income ?: BigDecimal.ZERO
-                    var expense = currentSummary?.expense ?: BigDecimal.ZERO
-
-                    if (transaction.type == Type.INCOME) {
-                        income = income.add(transaction.value)
-                    } else {
-                        expense = expense.add(transaction.value)
-                    }
-
-                    byFinanceInstitutionResult.compute(stringfiedMonth) { _, monthInstance ->
-                        if (monthInstance == null) {
-                            mutableMapOf(financeInstitution to BasicMonthSummary(income.subtract(expense), income, expense))
-                        } else {
-                            monthInstance[financeInstitution] = BasicMonthSummary(income.subtract(expense), income, expense)
-                            monthInstance
-                        }
-                    }
-                }
-            }
-            summary.byFinanceInstitution = byFinanceInstitutionResult
-        }
-
         return summary
     }
 

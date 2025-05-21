@@ -20,7 +20,6 @@ class EditTransactionService(
         title: String?,
         type: Type?,
         category: UUID?,
-        financeInstitution: UUID?,
         date: LocalDate?,
         value: BigDecimal?
     ) {
@@ -31,7 +30,6 @@ class EditTransactionService(
         title?.let { entity.title = it }
         type?.let { entity.type = it }
         category?.let { entity.category = it }
-        financeInstitution?.let { entity.financeInstitution = it }
         date?.let { entity.date = it }
         value?.let { entity.value = it }
 

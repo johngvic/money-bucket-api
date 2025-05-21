@@ -1,11 +1,9 @@
 package br.com.moneybucket.controller
 
-import br.com.moneybucket.dto.finance_institutions.req.EditFinanceInstitutionRequest
 import br.com.moneybucket.dto.transactions.req.CreateTransactionRequest
 import br.com.moneybucket.dto.transactions.req.EditTransactionRequest
 import br.com.moneybucket.dto.transactions.res.CreateTransactionResponse
 import br.com.moneybucket.dto.transactions.res.GetTransactionsResponse
-import br.com.moneybucket.entity.FinanceInstitution
 import br.com.moneybucket.entity.Transaction
 import br.com.moneybucket.exception.ResourceNotFoundException
 import br.com.moneybucket.helpers.StringParser
@@ -36,7 +34,7 @@ class TransactionController(
         @RequestBody request: CreateTransactionRequest
     ): ResponseEntity<CreateTransactionResponse> {
         val username = tokenService.validateToken(StringParser.split(authorization))
-        val id = createTransactionService.invoke(username, request.title, request.type, request.category, request.financeInstitution, request.date, request.value)
+        val id = createTransactionService.invoke(username, request.title, request.type, request.category, request.date, request.value)
         return ResponseEntity(CreateTransactionResponse(id), HttpStatus.CREATED)
     }
 
@@ -77,7 +75,6 @@ class TransactionController(
             request.title,
             request.type,
             request.category,
-            request.financeInstitution,
             request.date,
             request.value
         )
